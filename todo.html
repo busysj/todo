@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>투두리스트</h1>
+
+    <form id="input_form">
+      <input id="todo_Input" type="text" placeholder="할일을 입력해주세요." />
+      <input id="add_button" type="button" value="+" />
+    </form>
+
+    <ul id="todo-board" style="list-style-type: none"></ul>
+    <p id="complete"></p>
+    <script>
+      const todoInput = document.querySelector("#todo_Input"),
+        addButton = document.querySelector("#add_button"),
+        todoBoard = document.querySelector("#todo-board");
+
+      let count = 0;
+
+      addButton.addEventListener("click", todoList);
+
+      function todoList() {
+        const li = document.createElement("li"),
+          checkbox = document.createElement("input"),
+          text = document.createTextNode(todoInput.value),
+          button = document.createElement("button");
+
+        checkbox.type = "checkbox";
+        checkbox.addEventListener("click", todoCheck);
+        button.textContent = "X";
+        button.addEventListener("click", todoDelete);
+
+        li.appendChild(checkbox);
+        li.appendChild(text);
+        li.appendChild(button);
+        todoBoard.appendChild(li);
+        todoInput.value = "";
+      }
+
+      function todoCheck(event) {
+        const checkbox = event.target;
+        const complete = document.querySelector("#complete");
+        if (checkbox.checked) {
+          checkbox.parentNode.style.color = "lightgray";
+          count++;
+        } else {
+          checkbox.parentNode.style.color = "black";
+          count--;
+        }
+        complete.textContent = "오늘 완료한 할 일 : " + count + "개";
+      }
+
+      function todoDelete(event) {
+        event.target.parentNode.remove();
+      }
+    </script>
+  </body>
+</html>
