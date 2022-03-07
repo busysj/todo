@@ -57,7 +57,12 @@
       }
 
       function todoDelete(event) {
+        const complete = document.querySelector("#complete");
         event.target.parentNode.remove();
+        if (count !== 0) {
+          count--;
+          complete.textContent = "오늘 완료한 할 일 : " + count + "개";
+        }
       }
     </script>
   </body>
